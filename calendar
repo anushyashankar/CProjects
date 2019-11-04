@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+int main() {
+	
+	//declarations and initializations
+	int mdays[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	const char months[12][20] = { "January", "February", "March", "April",
+								  "May", "June", "July", "August", "September",
+								  "October", "November", "December" }; 
+		
+	int year;
+	int firstDay;
+	bool isLeap = false;
+
+	//user enters year
+	cout << "Enter year: ";
+	cin >> year;
+
+	//user enters day of week of first day
+	cout << "Enter the day of the week of the first day (as a number --> Sun = 0): ";
+	cin >> firstDay;
+
+	//check if leap year --> modify second element (feb)
+	if (year % 4 == 0) {
+		if (((year % 100 == 0) && (year % 400 == 0)) || (year % 100 != 0)) {
+			isLeap = true;
+		}
+		else {
+			isLeap = false;
+		}
+	}
+
+	if (isLeap)
+		mdays[2] = 29; //february element
+
+		//print out calendar
+	for (int i = 0; i < 12; i++) { //months
+		cout << months[i] << " " << year << endl;
+		cout << "Su\t" << "M\t" << "T\t" << "W\t" << "Th\t" << "F\t" << "Sa" << endl;
+		for (int j = 1; j <= (firstDay + mdays[i]); j++) {
+			if (j - firstDay < 1) {
+				cout << "\t";
+				continue;
+			}
+			//print out date
+			cout << j - firstDay;
+			if (j % 7 == 0)
+				cout << endl;
+			else
+				cout << "\t";
+			//if at last day of month
+			if ((j - firstDay) == mdays[i]) {
+				firstDay = (j % 7);
+				break;
+			}
+		}
+		cout << endl;
+	}
+
+	cin.get();
+	cin.get();
+
+}
