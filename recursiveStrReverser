@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+/*recursive string reverser 2*/
+void reverse(char *source, char *target) {
+	if (*source == NULL) 
+		return;
+
+	reverse(source + 1, target - 1);
+	*target = *source;
+}
+
+int main() {
+	/*char source[] = "Hello";
+	char target[100] = { 0 };
+
+	reverse(source, target + strlen(source) - 1);
+
+	cout << "Source: " << source << endl << "Target: " << target;
+
+	cin.get();
+	cin.get();
+}
