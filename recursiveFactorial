@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+//recursive factorial calculator
+int factorial(int x) {
+	if (x == 1) //exit condition
+		return(x);
+	else
+		return(x*factorial(x - 1)); //decremented repetition
+}
+
+int main() {
+	int x = 0; //input value
+
+	//input
+	cout << "Enter a number: ";
+	cin >> x;
+
+	//output
+	cout << endl << x << "! = " << factorial(x);
+
+	cin.get();
+	cin.get();
+}
