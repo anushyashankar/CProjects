@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+/*recursive binary search*/
+int *bsearch(int *list, int numE, int target) {
+	int mid = numE / 2;
+	if (list[mid] == target) 
+		return &mid;
+	
+	if (list[mid] > target) 
+		return bsearch(list[mid] + 1, numE - mid, target);
+	
+	if (list[mid] < target) {
+		return bsearch(list[mid] - 1, numE - mid, target);
+	}
+}
+
+void main() {
+	//input variables
+	int a[5] = { 0 };
+	int numE = 5;
+	int target = 0;
+
+	//input
+	cout << "Enter a list of five numbers (least to greatest) separated by spaces: ";
+	for (int i = 0; i < 5; i++) {
+		cin >> a[i];
+	}
+	cout << endl << "Enter the target number: ";
+	cin >> target;
+
+	//output
+	cout << "The target is at address " << bsearch(a, numE, target);
+
+	cin.get();
+	cin.get();
+}
