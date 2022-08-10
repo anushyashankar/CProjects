@@ -1,3 +1,4 @@
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -48,6 +49,19 @@ public class LinkedList {
 		first = null;
 		return temp.data;
 	}
+	
+	public void addLast(Object element) {
+		if (first == null)
+			this.addFirst(element);
+		//LinkedListIterator temp = new LinkedListIterator();
+		Node temp = first;
+		while (temp.next != null) {
+			temp = temp.next;
+		}
+		
+		temp.next = new Node(element, null);
+		
+	}
 
 	/**
 	 * Adds an element to the front of the linked list.
@@ -59,64 +73,6 @@ public class LinkedList {
 		// at the beginning of the linked list
 		Node add = new Node(element, first);
 		first = add;
-	}
-
-	/*Part B*/
-	public void insertAlphabetical(String word) {
-		Node temp = first;
-		Node addWord = new Node(word, temp);
-		
-		if (temp != null && word.compareTo(temp.data.toString()) <= 0)
-			addFirst(word);
-		
-		else {
-			while (temp.next != null) {
-				String fruit = temp.next.data.toString();
-				if (word.compareTo(fruit) <= 0) {
-					addWord.next = temp.next;
-					temp.next = addWord;
-					break;
-				}
-				temp = temp.next;
-			}
-			
-			if (temp.next == null) {
-				addWord.next = temp.next;
-				temp.next = addWord;
-			}
-		}
-	}
-	
-	public void removeLetter(String beginningLetter) {
-		Node temp = first;
-		
-		if (first != null && first.data.toString().substring(0,1).equals(beginningLetter))
-			first = first.next;
-		
-		else {
-			while (temp.next != null) {
-				String letter = temp.next.data.toString().substring(0,1);
-				if (letter.equals(beginningLetter))
-					temp.next = temp.next.next;
-				temp = temp.next;
-			}
-		}
-	}
-	
-	public String find(String inputWord) {
-		Node temp = first;
-		if (first == null)
-			return "list is empty";
-		else if (first.data.toString().equals(inputWord))
-			return "word is found in the list";
-		else {
-			while (temp.next != null) {
-				if (temp.next.data.toString().equals(inputWord))
-					return "word is found in the list";
-				temp = temp.next;
-			}
-		}
-		return "is not found";
 	}
 	
 	public void reverseList() {
@@ -132,31 +88,6 @@ public class LinkedList {
 			temp = temp.next;
 		}
 		first = current;
-	}
-	
-	public boolean checkPrime(int n) {
-		for (int i = 2; i <= n/2; i++) {
-			if (n % 1 == 0 && n != 2)
-				return false;
-		}
-		return true;
-	}
-	
-	
-	public void removeCompositeNumbers() {
-		if (first != null && !checkPrime((int) first.data)) {
-			first = first.next;
-		}
-		
-		Node temp = first;
-		
-		while (temp.next != null) {
-			if (!checkPrime((int) temp.data)) {
-				temp.next = temp.next.next;
-			}
-			else
-				temp = temp.next;
-		}
 	}
 	
 	/**
@@ -282,12 +213,32 @@ public class LinkedList {
 			// complete code to overwrite the data at position with element
 			position.data = element;
 		}
-		
-		
+
+		@Override
+		public boolean hasPrevious() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Object previous() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int nextIndex() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int previousIndex() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 		
 	}
-	
-	
 	
 	public String toString() {
 		
