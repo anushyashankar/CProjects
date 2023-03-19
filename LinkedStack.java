@@ -1,7 +1,7 @@
 import java.util.NoSuchElementException;
 
 /**
- * Your implementation of an ArrayStack.
+ * Your implementation of a LinkedStack. It should NOT be circular.
  *
  * @author Anushya Shankar
  * @version 1.0
@@ -12,36 +12,22 @@ import java.util.NoSuchElementException;
  *
  * Resources: n/a
  */
-public class ArrayStack<T> {
-
-    /*
-     * The initial capacity of the ArrayStack.
-     *
-     * DO NOT MODIFY THIS VARIABLE.
-     */
-    public static final int INITIAL_CAPACITY = 9;
+public class LinkedStack<T> {
 
     /*
      * Do not add new instance variables or modify existing ones.
      */
-    private T[] backingArray;
+    private LinkedNode<T> head;
     private int size;
 
-    /**
-     * Constructs a new ArrayStack.
+    /*
+     * Do not add a constructor.
      */
-    public ArrayStack() {
-        backingArray = (T[]) new Object[INITIAL_CAPACITY];
-        size = 0;
-    }
 
     /**
      * Adds the data to the top of the stack.
      *
-     * If sufficient space is not available in the backing array, resize it to
-     * double the current length.
-     *
-     * Must be amortized O(1).
+     * Must be O(1).
      *
      * @param data the data to add to the top of the stack
      * @throws java.lang.IllegalArgumentException if data is null
@@ -50,23 +36,19 @@ public class ArrayStack<T> {
         if (data == null) {
             throw new IllegalArgumentException("The data entered is null.");
         }
-        if (size == backingArray.length) {
-            T[] newArray = (T[]) new Object[backingArray.length * 2];
-            for (int i = 0;  i < size; i++) {
-                newArray[i] = backingArray[i];
-            }
-            backingArray = newArray;
+        if (size == 0) {
+            head = new LinkedNode<T>(data);
+        } else {
+            LinkedNode<T> pushed = new LinkedNode<>(data);
+            pushed.setNext(head);
+            head = pushed;
         }
-        backingArray[size] = data;
+
         size++;
     }
 
     /**
      * Removes and returns the data from the top of the stack.
-     *
-     * Do not shrink the backing array.
-     *
-     * Replace any spots that you pop from with null.
      *
      * Must be O(1).
      *
@@ -75,12 +57,12 @@ public class ArrayStack<T> {
      */
     public T pop() {
         if (size == 0) {
-            throw new NoSuchElementException("The stack is empty, nothing to pop.");
+            throw new NoSuchElementException("Stack is empty, nothing to pop.");
         }
-        T popped = backingArray[size - 1];
-        backingArray[size - 1] = null;
+        LinkedNode<T> popped = head;
+        head = head.getNext();
         size--;
-        return popped;
+        return popped.getData();
     }
 
     /**
@@ -93,23 +75,22 @@ public class ArrayStack<T> {
      */
     public T peek() {
         if (size == 0) {
-            throw new NoSuchElementException("The stack is empty, nothing to pop.");
+            throw new NoSuchElementException("Stack is empty, nothing to peek at.");
         }
-
-        return backingArray[size - 1];
+        return head.getData();
     }
 
     /**
-     * Returns the backing array of the stack.
+     * Returns the head node of the stack.
      *
      * For grading purposes only. You shouldn't need to use this method since
      * you have direct access to the variable.
      *
-     * @return the backing array of the stack
+     * @return the node at the head of the stack
      */
-    public T[] getBackingArray() {
-        // DO NOT MODIFY THIS METHOD!
-        return backingArray;
+    public LinkedNode<T> getHead() {
+        // DO NOT MODIFY!
+        return head;
     }
 
     /**
