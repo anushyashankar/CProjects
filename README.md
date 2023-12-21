@@ -1,1 +1,3 @@
-# Projects I've completed over the last four years
+# portfolio
+projects from 2017 - present
+(\ >_< /)
